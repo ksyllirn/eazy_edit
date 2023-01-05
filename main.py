@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 import sys
 import os
-from PIL import Image
+from PIL import Image,  ImageEnhance
 
 
 app = QApplication(sys.argv)
@@ -116,6 +116,13 @@ class ImageProccesor():
         path = os.path.join(self.dir, self.save_dir, self.filename)
         self.show_image(path)
 
+    def do_enhance(self):
+        self.image = ImageEnhance.Contrast(self.image)
+        self.image = self.image.enhance(1.5)
+        self.save_image()
+        path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.show_image(path)
+
     def save_image(self):
         path = os.path.join(self.dir, self.save_dir)
         if not(os.path.exists(path) or os.path.isdir(path)):
@@ -139,5 +146,6 @@ btn_black_white.clicked.connect(img_proc.do_bw)
 btn_rotate_left.clicked.connect(img_proc.do_left)
 btn_rotate_right.clicked.connect(img_proc.do_right)
 btn_mirror.clicked.connect(img_proc.do_mirror)
+btn_contrast.clicked.connect(img_proc.do_enhance)
 
 app.exec_()
