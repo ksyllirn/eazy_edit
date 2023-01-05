@@ -97,6 +97,24 @@ class ImageProccesor():
         self.save_image()
         path = os.path.join(self.dir, self.save_dir, self.filename)
         self.show_image(path)
+    
+    def do_left(self):
+        self.image = self.image.transpose(Image.Transpose.ROTATE_90)
+        self.save_image()
+        path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.show_image(path)
+
+    def do_right(self):
+        self.image = self.image.transpose(Image.Transpose.ROTATE_270)
+        self.save_image()
+        path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.show_image(path)
+
+    def do_mirror(self):
+        self.image = self.image.transpose(Image.Transpose.FLIP_LEFT_RIGHT )
+        self.save_image()
+        path = os.path.join(self.dir, self.save_dir, self.filename)
+        self.show_image(path)
 
     def save_image(self):
         path = os.path.join(self.dir, self.save_dir)
@@ -118,5 +136,8 @@ img_proc = ImageProccesor()
 btn_open_dir.clicked.connect(show_files)
 image_list.currentRowChanged.connect(showCurrentImage)
 btn_black_white.clicked.connect(img_proc.do_bw)
+btn_rotate_left.clicked.connect(img_proc.do_left)
+btn_rotate_right.clicked.connect(img_proc.do_right)
+btn_mirror.clicked.connect(img_proc.do_mirror)
 
 app.exec_()
